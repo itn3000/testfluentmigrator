@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "fluentmigrator.dotnet.cli": {
+      "version": "3.2.1",
+      "commands": [
+        "dotnet-fm"
+      ]
+    }
+  }
+}
