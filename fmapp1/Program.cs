@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentMigrator.Runner;
 using FluentMigrator.Runner.Initialization;
+using FluentMigrator.Runner.Processors;
 using Microsoft.Extensions.DependencyInjection;
 using McMaster.Extensions.CommandLineUtils;
 using Microsoft.Extensions.Logging;
@@ -36,7 +37,9 @@ namespace fmapp1
                 .ConfigureRunner(cfg => cfg.WithGlobalConnectionString(ConnectionString)
                     .AddPostgres()
                     .ScanIn(typeof(fmlib1.Migration1).Assembly)
-                );
+                )
+                .Configure<SelectingProcessorAccessorOptions>(x => x.ProcessorId = "Postgres")
+                ;
             using(var provider = services.BuildServiceProvider())
             {
                 using(var scope = provider.CreateScope())
