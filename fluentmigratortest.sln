@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fmlib1", "fmlib1\fmlib1.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fmapp1", "fmapp1\fmapp1.csproj", "{77F147FA-3248-4815-9384-E41038A308BD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "schemadump.pg", "schemadump.pg\schemadump.pg.csproj", "{52B6E5E7-F397-46DD-9520-3F6C9FDFFAD3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,5 +46,17 @@ Global
 		{77F147FA-3248-4815-9384-E41038A308BD}.Release|x64.Build.0 = Release|Any CPU
 		{77F147FA-3248-4815-9384-E41038A308BD}.Release|x86.ActiveCfg = Release|Any CPU
 		{77F147FA-3248-4815-9384-E41038A308BD}.Release|x86.Build.0 = Release|Any CPU
+		{52B6E5E7-F397-46DD-9520-3F6C9FDFFAD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52B6E5E7-F397-46DD-9520-3F6C9FDFFAD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52B6E5E7-F397-46DD-9520-3F6C9FDFFAD3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{52B6E5E7-F397-46DD-9520-3F6C9FDFFAD3}.Debug|x64.Build.0 = Debug|Any CPU
+		{52B6E5E7-F397-46DD-9520-3F6C9FDFFAD3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{52B6E5E7-F397-46DD-9520-3F6C9FDFFAD3}.Debug|x86.Build.0 = Debug|Any CPU
+		{52B6E5E7-F397-46DD-9520-3F6C9FDFFAD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52B6E5E7-F397-46DD-9520-3F6C9FDFFAD3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52B6E5E7-F397-46DD-9520-3F6C9FDFFAD3}.Release|x64.ActiveCfg = Release|Any CPU
+		{52B6E5E7-F397-46DD-9520-3F6C9FDFFAD3}.Release|x64.Build.0 = Release|Any CPU
+		{52B6E5E7-F397-46DD-9520-3F6C9FDFFAD3}.Release|x86.ActiveCfg = Release|Any CPU
+		{52B6E5E7-F397-46DD-9520-3F6C9FDFFAD3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

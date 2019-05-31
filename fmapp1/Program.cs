@@ -33,6 +33,31 @@ namespace fmapp1
                 ;
             app.Execute(args);
         }
+        void EnsurePgDatabase()
+        {
+            var cb = new Npgsql.NpgsqlConnectionStringBuilder(ConnectionString);
+            var targetdb = cb.Database;
+            cb.Database = "postgres";
+            using(var con = new Npgsql.NpgsqlConnection(cb.ToString()))
+            {
+                con.Open();
+                bool isExists = false;
+                using(var cmd = con.CreateCommand())
+                {
+                    cmd.CommandText = $"select count(*) as cnt from pg_database where datname = @dbname";
+                    cmd.Parameters.AddWithValue("dbname", targetdb);
+                    isExists = Convert.ToInt64(cmd.ExecuteScalar()) != 0;
+                }
+                if(!isExists)
+                {
+                    using(var cmd = con.CreateCommand())
+                    {
+                        cmd.CommandText = $"create database {targetdb}";
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+            }
+        }
         public void OnExecute(CommandLineApplication app)
         {
             var services = new ServiceCollection()
@@ -44,13 +69,17 @@ namespace fmapp1
                     .ScanIn(typeof(fmlib1.Migration1).Assembly)
                 )
                 // .AddSingleton<fmlib1.IMigrationDIParam>(new MigrationDIParamImpl())
-                .Configure<SelectingProcessorAccessorOptions>(x => x.ProcessorId = "sqlite")
+                .Configure<SelectingProcessorAccessorOptions>(x => x.ProcessorId = "postgres")
                 ;
             using(var provider = services.BuildServiceProvider())
             {
                 using(var scope = provider.CreateScope())
                 {
                     var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
+                    if(runner.Processor.DatabaseType.Equals("postgres", StringComparison.OrdinalIgnoreCase))
+                    {
+                        EnsurePgDatabase();
+                    }
                     runner.MigrateUp();
                 }
             }
