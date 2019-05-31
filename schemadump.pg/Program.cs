@@ -18,14 +18,14 @@ namespace schemadump.pg
     }
     class Program
     {
-        static NpgsqlConnection CreateConnection()
+        static NpgsqlConnection CreateConnection(string host, int port, string user, string pass, string dbname)
         {
             var cb = new NpgsqlConnectionStringBuilder();
-            cb.Host = "localhost";
-            cb.Port = 5432;
-            cb.Username = "postgres";
-            cb.Password = "intercom";
-            cb.Database = "fmtest1";
+            cb.Host = host;
+            cb.Port = port;
+            cb.Username = user;
+            cb.Password = pass;
+            cb.Database = dbname;
             return new NpgsqlConnection(cb.ToString());
         }
         static string[] GetSchemaCollectionNames(NpgsqlConnection con)
@@ -38,7 +38,7 @@ namespace schemadump.pg
         static void Main(string[] args)
         {
             // TODO: create schema dumper
-            using (var con = CreateConnection())
+            using (var con = CreateConnection(args[0], int.Parse(args[1]), args[2], args[3], args[4]))
             {
                 con.Open();
                 foreach (var collectionName in GetSchemaCollectionNames(con))
