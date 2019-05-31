@@ -9,6 +9,10 @@ using Microsoft.Extensions.Logging.Console;
 
 namespace fmapp1
 {
+    class MigrationDIParamImpl : fmlib1.IMigrationDIParam
+    {
+        public int Data { get => 128; }
+    }
     class Program
     {
         ILogger _Logger;
@@ -33,12 +37,14 @@ namespace fmapp1
         {
             var services = new ServiceCollection()
                 .AddFluentMigratorCore()
-                .AddLogging(logging => logging.AddConsole())
+                .AddLogging(logging => logging.AddFluentMigratorConsole())
                 .ConfigureRunner(cfg => cfg.WithGlobalConnectionString(ConnectionString)
                     .AddPostgres()
+                    .AddSQLite()
                     .ScanIn(typeof(fmlib1.Migration1).Assembly)
                 )
-                .Configure<SelectingProcessorAccessorOptions>(x => x.ProcessorId = "Postgres")
+                // .AddSingleton<fmlib1.IMigrationDIParam>(new MigrationDIParamImpl())
+                .Configure<SelectingProcessorAccessorOptions>(x => x.ProcessorId = "sqlite")
                 ;
             using(var provider = services.BuildServiceProvider())
             {
